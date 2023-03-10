@@ -1,0 +1,44 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+
+<div id="content">
+    <h1 class="welcome-user">View Meeting</h1>
+    <span class="nav-map">Login / Dashboard / View Meeting Summary</span>
+
+
+
+
+    <!-- FILE CHOOSE MODEL -->
+    <div class="upload-file-section">
+        <div class="row-100">
+            <div class="col-50">
+                <label class="meeting-label">Full Meeting</label>
+                <audio class="w-90" src="/{{fullMeetingAudio}}" controls></audio>
+                <br />
+                <textarea rows="25" class="summarysection p-5">{{meeting_transcript}}</textarea>
+            </div>
+            <div class="col-50">
+                {%for i in audio_chunks%}
+                <label class="meeting-label">Speaker {{forloop.counter}}</label>
+                <audio class="w-90" src="/{{i}}" controls></audio>
+
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+
+</html>
+
+{% include '../footer.html' %}
+
+
+<script>
+    $('#view-meetingList').addClass('nav-active');
+
+</script>

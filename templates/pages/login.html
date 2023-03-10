@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="/static/css/style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+  <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+
+  <title>Login | atomstate</title>
+</head>
+
+<body>
+  <div class="login-form">
+    <img src="/static/img/logo.png" alt="" class="logo" />
+
+    <img class="front-lines loop" height="100%" src="/static/img/login_page/frontlines.svg" />
+    <div class="blur-bg-g"></div>
+    <img class="bg-lines loop" height="100%" src="/static/img/login_page/bg-lines.svg" />
+    <div class="blur-bg">
+      <img class="motion-blur" height="100%" src="/static/img/login_page/motionblur.svg" />
+
+      <img class="brain-img" src="/static/img/login_page/brain.svg" />
+
+      <img src="/static/img/login_page/stroke.svg" alt="" class="strokes" />
+
+      <div class="form-container" id="login-form">
+        <form action="#" method="POST">
+
+          {% csrf_token %}
+          <p class="welcome">Welcome back</p>
+
+          {% if logged_suc %}
+          <div class="alert alert-success">
+            <strong><i class="fa fa-check-circle"></i> Success!</strong> Logged out successfully
+          </div>
+          {% else %}
+
+          {% endif %}
+          {% if err %}
+          <div class="alert alert-danger p-0 m-0">
+            <strong><span class="fa fa-times-circle p-0 m-0"></span> Error!</strong> Check Your Credentials
+          </div>
+          {% else %}
+
+          {% endif %}
+          <p class="login-h2">Login to your account</p>
+          <br />
+          <select class="lang-select ml-auto" name="login_type">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+          <br>
+          <label class="form-label">Username</label>
+          <br />
+          <input type="text" name="login_UserName" class="form-input" placeholder="test_atom" />
+          <br />
+          <label class="form-label">Password</label>
+          <br />
+          <input type="password" name="login_PWD" class="form-input" placeholder="Yo$RSecR3T" />
+          <div class="form-rowList">
+            <input type="checkbox" class="form-check-box" name="keeplogin" value="Yes" />
+            <label class="form-label">Remember me</label>
+
+            <a class="form-ancher" href="#"><label class="form-label">Forgot Password?</label></a>
+          </div>
+          <br /><br />
+          <button class="btn-login-form" id="btnLogin">Login now</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+{% include '../footer.html' %}
+<script>
+  anime({
+    targets: '.loop',
+    keyframes: [{ translateY: 5 }, { translateX: 5 }, { translateY: 5 }, { translateX: 0 }, { translateY: 1 }],
+    direction: 'alternate',
+    duration: 4000,
+    loop: true,
+    easing: 'linear'
+  })
+
+  anime({
+    targets: '.brain-img',
+
+    easing: 'easeInOutSine',
+    duration: 1000,
+    keyframes: [{ scale: 1.008 }, { scale: 1 }],
+    direction: 'alternate',
+    loop: true
+  })
+</script>
+
+</html>

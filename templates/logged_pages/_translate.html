@@ -1,0 +1,94 @@
+{% include '../head.html' %}
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        {% include './sidebar.html' %}
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                {%include './topbar.html'%}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray">Translate Summary</h1>
+                    <!-- <p class="mb-4">You fetched summary</p> -->
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <!-- <h6 class="m-0 font-weight-bold text-dark">DataTables Example</h6> -->
+                        </div>
+                        <div class="card-body">
+                            <form class="form-horizontal" role="form" action="/summary/translate" method="post">
+                                {%csrf_token%}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="summary_id" class="text-dark">Summerized ID : </label>
+                                        <input type="text" class="form-control" id="summary_id" value="{{summary_id}}" readonly />
+
+                                        <label for="summary_text" class="text-dark">Summerized Text : </label>
+                                        <textarea class="form-control" id="summary_text" name="summary_text"
+                                            placeholder="" readonly>{{summary}}</textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="convert" class="text-dark">Convert To : </label>
+                                        <select class="form-control form-select" id="convert" name="convert">
+                                            <option value="te">Telugu - తెలుగు</option>
+                                            <option value="hi">Hindi - हिन्दी </option>
+                                            <option value="ur">Urdu - اردو </option> 
+                                            <option value="ta">Tamil - தமிழ் </option>
+                                            <option value="kn">Kannada - ಕನ್ನಡ </option>
+                                            <option value="mr">Marthi - मराठी </option>
+                                            <option value="pa">Punjabi - ਪੰਜਾਬੀ </option>
+                                            <option value="gu">Gujrathi - ગુજરાતી </option>
+                                        </select>
+                                        
+
+
+
+
+
+                                    </div>
+                                </div>
+
+                                <br>
+                                <button type="submit" value="submit" class="btn btn-primary">
+                               
+                               
+
+                                <i class="fa fa-language"></i> Translate</button>
+                                    
+
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+                {% include '../footer.html' %}
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>

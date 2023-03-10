@@ -1,0 +1,93 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+<div id="content">
+    <h1 class="welcome-user">Welcome admin!</h1>
+    <span class="nav-map">Login / Members</span>
+
+
+    <br />
+
+    <button type="button" class="btn-add-member" id="add-member"><i class="fa-solid fa-plus-circle"></i>Add
+        Member</button>
+    <!-- MODEL for Add Member -->
+
+    <div class="add-member-model">
+        <input class="add-member-input" type="text" name="" id="" placeholder="Name">
+        <br>
+        <input class="add-member-input" type="text" name="" id="" placeholder="Email">
+        <br>
+        <input class="add-member-input" type="text" name="" id="" placeholder="Mobile Number">
+        <br>
+        <input class="btn-add-invite" type="submit" name="" id="" value="Invite Member">
+
+    </div>
+
+
+    <div class="last-five" style="margin-top: 15px;">
+        <div class="last-title">
+            <span class="title">Member</span>
+            <select class="filter-chart" name="filter" style="padding:10px; margin-top:1px;">
+                <option value="active"><i class="fa-solid fa-calendar-days"></i> Active</option>
+                <option value="inactive"><i class="fa-solid fa-calendar-days"></i> In Active</option>
+
+
+            </select>
+        </div>
+
+        <table class="table-last" id="">
+
+            <thead class="bg-th">
+                <tr>
+                    <th>SI</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Summary</th>
+                    <th>Content</th>
+                    <th>Approved</th>
+                    <th>Translations</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for j in Row %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{j.userName}}</td>
+                    <td>Moderator <i class="mod-icon fa-solid fa-pen" onclick="alert('UnderDevelopment!');"></i>
+                    </td>
+                    <td>{{j.summary_count}}
+                    </td>
+                    <td>{{j.contentCount}}
+                    </td>
+                    <td>
+                        {{j.total_approvals}} | {{j.total_approvals_pending}}
+
+                    </td>
+                    <td>
+
+                        {{j.translations_count}}
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+            </tbody>
+
+        </table>
+    </div>
+    <br>
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+{% include '../footer.html' %}
+
+
+</html>
+<script>
+
+    $("#add-member").click(function () {
+        $(".add-member-model").toggle("slow");
+        console.log("test");
+    });
+</script>

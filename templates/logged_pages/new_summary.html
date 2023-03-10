@@ -1,0 +1,449 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+
+<div id="content">
+    <h1 class="welcome-user">Create your New Summary</h1>
+    <span class="nav-map">Login / Dashboard / New Summary</span>
+
+
+
+    <!-- SELECT BUTTONS -->
+    <div class="summary-grid no-left-margin">
+        <div class="summary-grid-layout summary-grid-active " id="filechoose">
+            <i class="grid-icon fa-solid fa-file-invoice" id="icon-file"></i>
+            <br>
+            <span class="summary-grid-text">Summarise<br> Files</span>
+        </div>
+
+        <div class="summary-grid-layout " id="linkchoose">
+            <i class="grid-icon fa-solid fa-newspaper" id="icon-news"></i> <br>
+            <span class="summary-grid-text">Summarise <br>Article</span>
+        </div>
+
+        <div class="summary-grid-layout " id="gochoose">
+            <i class="grid-icon fa-solid fa-building-columns" id="icon-go"></i> <br>
+
+            <span class="summary-grid-text">Summarise <br>GO</span>
+        </div>
+
+        <div class="summary-grid-layout " id="meetting_choose">
+            <i class="grid-icon fa-solid fa-users-viewfinder" id="icon-meeting"></i> <br>
+
+            <span class="summary-grid-text">Summarise <br>Meeting</span>
+        </div>
+
+
+
+
+        <!-- <div class="summary-grid-layout ">
+            <i class="grid-icon fa-solid fa-microphone"></i>
+            <br>
+            <span class="summary-grid-text">Summarise Recording</span>
+        </div> -->
+    </div>
+
+    <!-- FILE CHOOSE MODEL -->
+    <div class="upload-file-section" id="subfile">
+
+
+
+
+
+        <form class="form-horizontal" role="form" action="new_summary" method="post" enctype="multipart/form-data"
+            id="uploadform">
+            {%csrf_token%}
+
+            <div class="white-drop-section">
+
+                <!-- hideWhenFileChoosen -->
+                <div id="filechoose-section">
+                    <i class="upload-icon color-a fa-solid fa-cloud-arrow-up"></i>
+                    <br>
+                    <div class="hiddenfile">
+                        <input name="uploadedFile" onchange="checkFileEXT(this.value);" type="file" id="fileinput" />
+                    </div>
+                    <span class="drg-n-drop">Drag & drop files or </span> <span class="color-a drg-n-drop"
+                        id="fileinputTrigger">Browse</span>
+                    <br>
+                    <span class="filetypes">Supporeted formates : PDF, DOCX, DOC, WAV, MP4</span>
+                </div>
+
+                <!-- FileAfterChoosing -->
+                <div class="row-100" id="filenamesection">
+                    <div class="col-50 py-20">
+                        <label for="filename">Choosen file : </label>
+                        <div class="filename">
+                            <div class="row-100" id="filechangeclick">
+                                <div class="mr-auto">
+                                    <i class="fa-solid fa-file"></i><span class="filetext" id="filename">Name</span>
+
+                                </div>
+
+                            </div>
+                            <span class="err-text" id="err-text">This document is not supported, please delete and
+                                upload another
+                                file.</span>
+
+                        </div>
+                    </div>
+                    <div class="col-50 py-20">
+                        <div id="lang">
+                            <label for="language">Language : </label>
+                            <select type="text" class="lang-select sum-id" name="language">
+                                <option value="te-In">Telugu - తెలుగు</option>
+                                <option value="hi-In">Hindi - हिन्दी </option>
+                                <option value="en-In">English - English </option>
+                                <option value="ur-IN">Urdu - اردو </option>
+                                <option value="ta-In">Tamil - தமிழ் </option>
+                                <option value="kn-In">Kannada - ಕನ್ನಡ </option>
+                                <option value="mr-IN">Marthi - मराठी </option>
+                                <option value="pa-Guru-In">Punjabi - ਪੰਜਾਬੀ </option>
+                                <option value="gu-In">Gujrathi - ગુજરાતી </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <button type="submit" class="btn-upload" id="upload-btn">Upload Files</button>
+        </form>
+    </div>
+
+
+    <!-- SUBLINK -->
+
+    <div class="upload-file-section" id="sublink">
+        <form class="form-horizontal" role="form" action="nw_newsarticle" method="post">
+            {%csrf_token%}
+
+            <input class="FormInputNEWS" type="text" name="news_url" id="news_url"
+                placeholder="Paste your News Article to summarise its content" />
+
+            <button type="submit" class="btn-upload">Summarise link </button>
+        </form>
+    </div>
+
+    <!-- MeetingModel -->
+
+    <div class="upload-file-section" id="submeeting">
+        <form class="form-horizontal" role="form" action="postMeeting" method="post" enctype="multipart/form-data"
+            id="uploadform">
+            {%csrf_token%}
+
+            <div class="white-drop-section">
+
+                <!-- hideWhenFileChoosen -->
+                <div id="meetingchoose-section">
+                    <i class="upload-icon color-a fa-solid fa-cloud-arrow-up"></i>
+                    <br>
+                    <div class="hiddenfile">
+                        <input name="meetingaudio" onchange="chckmeeting(this.value);" type="file" id="meetinginput" />
+                    </div>
+                    <span class="drg-n-drop">Drag & drop files or </span> <span class="color-a drg-n-drop"
+                        id="meetinginputTrigger">Browse</span>
+                    <br>
+                    <span class="filetypes">Supporeted formates : WAV</span>
+                </div>
+
+                <!-- FileAfterChoosing -->
+                <div class="row-100" id="meetingfileName">
+                    <div class="col-50 py-20">
+                        <label for="filename">Choosen file : </label>
+                        <div class="filename">
+                            <div class="row-100" id="meettingchangeclick">
+                                <div class="mr-auto">
+                                    <i class="fa-solid fa-file"></i><span class="filetext"
+                                        id="meetingfileNametext">Name</span>
+
+                                </div>
+
+                            </div>
+                            <span class="err-text" id="err-text-meeting">This document is not supported, please delete
+                                and
+                                upload another
+                                file.</span>
+
+                        </div>
+                        <label for="model">Model : </label>
+                        <select type="text" class="lang-select sum-id row-100" name="meetingModel">
+                            <option value="tiny">Tiny</option>
+                            <option value="base">Base</option>
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+
+                        </select>
+                    </div>
+                    <div class="col-50 py-20" id="lang-meeting">
+                        <div class="row-100">
+                            <div class="col-50">
+                                <label for="language">Language : </label>
+                                <select type="text" class="lang-select sum-id" name="language">
+                                    <option value="English">English - English </option>
+                                    <option value="Telugu">Telugu - తెలుగు</option>
+                                    <option value="Hindi">Hindi - हिन्दी </option>
+                                    <!-- <option value="ur-IN">Urdu - اردو </option>
+                                    <option value="ta-In">Tamil - தமிழ் </option>
+                                    <option value="kn-In">Kannada - ಕನ್ನಡ </option>
+                                    <option value="mr-IN">Marthi - मराठी </option>
+                                    <option value="pa-Guru-In">Punjabi - ਪੰਜਾਬੀ </option>
+                                    <option value="gu-In">Gujrathi - ગુજરાતી </option> -->
+                                </select>
+                            </div>
+                            <div class="col-50">
+                                <label for="speaker_number">Speaker Count : </label>
+                                <select type="text" class="lang-select sum-id" name="speaker_number">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <button type="submit" class="btn-upload" id="upload-btn-meeting">Upload File</button>
+        </form>
+    </div>
+
+
+</div>
+</body>
+
+
+
+</html>
+
+{% include '../footer.html' %}
+
+
+<script>
+    // File Choosing trigger
+    $('#fileinputTrigger').click(function () {
+        $('#fileinput').trigger('click');
+
+    }
+    );
+
+
+
+
+    $('#meettingchangeclick').click(function () {
+        $('#meetinginput').trigger('click');
+
+
+
+    }
+    );
+
+
+
+    $('#meetinginputTrigger').click(function () {
+        $('#meetinginput').trigger('click');
+
+
+
+    }
+    );
+
+
+
+
+    $('#filechangeclick').click(function () {
+        $('#fileinput').trigger('click');
+
+
+
+    }
+    );
+
+
+
+
+    $('#fileinput').change(function () {
+        document.querySelector("#filename").textContent = '' + document.getElementById('fileinput').files[0].name;
+        $('#filenamesection').show("slow");
+        $('#filechoose-section').hide();
+
+
+    });
+
+    $('#meetinginput').change(function () {
+        document.querySelector("#meetingfileNametext").textContent = '' + document.getElementById('meetinginput').files[0].name;
+        $('#meetingfileName').show("slow");
+        $('#meetingchoose-section').hide();
+
+
+    });
+
+
+
+
+    // Default Color values
+    $('#sublink').hide();
+    $('#submeeting').hide();
+
+    $('#icon-file').addClass('color-a');
+    $('#icon-news').addClass('color-b');
+    $('#icon-go').addClass('color-b');
+    $('#icon-meeting').addClass('color-b');
+    $('#filenamesection').hide();
+    // $('#filechoose-section').hide();
+    $('#meetingfileName').hide();
+    // Function to handle the clicked events
+    $('#linkchoose').click(function () {
+        $('#filechoose').removeClass('summary-grid-active');
+        $('#linkchoose').addClass('summary-grid-active');
+        $('#subfile').hide("slow");
+        $('#submeeting').hide("slow");
+
+        $('#sublink').show();
+        $('#icon-file').replaceClass('color-a', 'color-b');
+        $('#icon-news').replaceClass('color-b', 'color-a');
+        $('#icon-go').replaceClass('color-a', 'color-b');
+        $('#icon-meeting').replaceClass('color-a', 'color-b');
+
+        $('#icon-go').addClass('color-b');
+
+
+    });
+
+    $('#filechoose').click(function () {
+        $('#filechoose').addClass('summary-grid-active');
+        $('#linkchoose').removeClass('summary-grid-active');
+        $('#subfile').show();
+        $('#submeeting').hide();
+
+        $('#sublink').hide();
+        $('#icon-file').replaceClass('color-b', 'color-a');
+        $('#icon-news').replaceClass('color-a', 'color-b');
+        $('#icon-go').replaceClass('color-a', 'color-b');
+        $('#icon-meeting').replaceClass('color-a', 'color-b');
+
+
+        $('#uploadform').attr('action', 'new_summary');
+
+
+
+
+    });
+
+    $('#gochoose').click(function () {
+        $('#icon-go').replaceClass('color-b', 'color-a');
+        $('#icon-news').replaceClass('color-a', 'color-b');
+        $('#icon-file').replaceClass('color-a', 'color-b');
+        $('#icon-meeting').replaceClass('color-a', 'color-b');
+
+        $('#subfile').show();
+        $('#sublink').hide();
+        $('#submeeting').hide();
+
+        $('#uploadform').attr('action', 'go');
+
+
+    });
+
+
+    $("#meetting_choose").click(function () {
+        $('#icon-meeting').replaceClass('color-b', 'color-a');
+        $('#icon-go').replaceClass('color-a', 'color-b');
+        $('#icon-news').replaceClass('color-a', 'color-b');
+        $('#icon-file').replaceClass('color-a', 'color-b');
+        $('#subfile').hide();
+        $('#sublink').hide();
+        $('#submeeting').show();
+    });
+
+
+
+
+    // Function for Replacement of Class Definition
+    (function ($) {
+        $.fn.replaceClass = function (pFromClass, pToClass) {
+            return this.removeClass(pFromClass).addClass(pToClass);
+        };
+    }(jQuery));
+
+    function checkFileEXT(filename) {
+        var ext = '.' + filename.split('.').pop();
+        var definedFileType = ['.docx', '.doc', '.pdf', '.txt', '.csv', '.wav', '.mp4', '.wmv', '.avi', '.txt']
+        if (!definedFileType.includes(ext)) {
+            $("#err-text").show();
+
+            $('#upload-btn').attr('disabled', true);
+            // $("#tweet_btn").attr('disabled', 'disabled');
+            $("#lang").hide();
+
+
+
+        }
+        else if (ext == '.wav' || ext == '.mp4' || ext == '.wmv' || ext == '.avi') {
+            $("#lang").show();
+            $("#err-text").hide();
+            $('#upload-btn').attr('disabled', false);
+
+
+        }
+        else {
+            $("#err-text").hide();
+            // $("#tweet_btn").attr('disabled', false);
+            $("#lang").hide();
+            $('#upload-btn').attr('disabled', false);
+
+
+
+        }
+    }
+
+
+
+    function chckmeeting(filename) {
+        var ext = '.' + filename.split('.').pop();
+        var definedFileType = ['.wav']
+        if (!definedFileType.includes(ext)) {
+            $("#err-text-meeting").show();
+
+            $('#upload-btn-meeting').attr('disabled', true);
+            // $("#tweet_btn").attr('disabled', 'disabled');
+            $("#lang-meeting").hide();
+
+
+
+        }
+        else if (ext == '.wav') {
+            $("#lang-meeting").show();
+            $("#err-text-meeting").hide();
+            $('#upload-btn-meeting').attr('disabled', false);
+            console.log(ext);
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+    // Adding Aactive for Sidebar
+
+    $('#new-summary').addClass('nav-active');
+
+
+</script>

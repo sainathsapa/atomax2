@@ -1,0 +1,313 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+<div id="content">
+    <h1 class="welcome-user">Welcome admin!</h1>
+    <span class="nav-map">Login / Dashboard</span>
+
+
+    <div class="dash-grid">
+        <div class="dash-grid-layout">
+            <iconify-icon class="color-b dash-block-text-icon" icon="material-symbols:local-activity-rounded"
+                width="30"></iconify-icon>
+            <p class="dash-block-text">Pending Approvals</p>
+            <p class="dash-block-text-num">{{pendingReq}}</p>
+
+        </div>
+        <div class="dash-grid-layout">
+            <iconify-icon class="color-b dash-block-text-icon" icon="mdi:file-document-outline"
+                width="30"></iconify-icon>
+            <p class="dash-block-text">Summary Completed</p>
+            <p class="dash-block-text-num">{{SummariesDone}}</p>
+
+        </div>
+        <div class="dash-grid-layout">
+            <iconify-icon class="color-b dash-block-text-icon" icon="icon-park-outline:doc-fail"
+                width="30"></iconify-icon>
+            <p class="dash-block-text">Transactions Completed</p>
+            <p class="dash-block-text-num">
+                {{TransDone}}
+
+            </p>
+
+        </div>
+        <div class="dash-grid-layout">
+            <iconify-icon class="color-b dash-block-text-icon" icon="material-symbols:insert-chart"
+                width="30"></iconify-icon>
+            <p class="dash-block-text">Advance Summary</p>
+            <p class="dash-block-text-num">{{Adv_summary}}</p>
+
+        </div>
+        <div class="dash-grid-layout">
+            <iconify-icon class="color-b dash-block-text-icon" icon="mdi:vector-arrange-above"
+                width="30"></iconify-icon>
+            <p class="dash-block-text">Content Generated</p>
+            <p class="dash-block-text-num">{{ContentGen_CNT}}</p>
+
+        </div>
+
+
+    </div>
+    <!-- CHARTS -->
+
+    <div class="chart-img">
+        <span class="name-text-chart">Recent Activity</span>
+         <select class="filter-chart" name="filter">
+            <option value="Last 15 Days"><i class="fa-solid fa-calendar-days"></i> Last One Year</option>
+
+        </select>
+         <select class="filter-chart" name="filter">
+            <option value="Last 15 Days"><i class="fa-solid fa-calendar-days"></i> Select all</option>
+
+        </select>
+        <canvas class="mychart" id="line-chart"></canvas>
+
+    </div>
+    <div class="last-five">
+        <div class="last-title">
+            <span class="title">Last 5 Activities</span>
+            <span style="float: right;"><button class="btn-view">View More.!</button></span>
+        </div>
+        <table class="table-last" id="dataTable">
+
+            <thead>
+                <tr>
+                    <th>SI</th>
+                    <th>File Or URL</th>
+                    <th>TimeStamp</th>
+                    <th>Status</th>
+                    <th>Twitter</th>
+                    <th>Instagram</th>
+                    <th>Summary</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for j in summaryList %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="/{{j.summary_org_file}}">{{j.summary_org_file}}</a></td>
+                    <td>{{j.summary_timestamp}}</td>
+                    <td>{% if j.summary_approval_status == True %}
+                        Approved
+                        {% else %}
+                        Not Approved
+                        {% endif %}
+                    </td>
+                    <td>{% if j.summary_added_to_twitter == False %}
+                        Not Posted
+                        {% else %}
+                        Posted LINK
+                        {% endif %}
+                    </td>
+                    <td>{% if j.summary_added_to_instagram == False %}
+                        Not Posted
+                        {% else %}
+                        Posted LINK
+                        {% endif %}</td>
+                    <td>
+
+                        <a href="/summary/viewSummary/{{j.summary_id}}">
+                            <button class="btn btn-dark"><i class="fas fa-fw fa-eye"></i> View
+                                Summary</button>
+                        </a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+            </tbody>
+
+        </table>
+    </div>
+    <br>    
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+{% include '../footer.html' %}
+
+
+</html>
+
+<script>
+let width, height, gradient;
+function getGradient(ctx, chartArea, colora, colorb) {
+    const chartWidth = chartArea.right - chartArea.left;
+    const chartHeight = chartArea.bottom - chartArea.top;
+    if (!gradient || width !== chartWidth || height !== chartHeight) {
+        // Create the gradient because this is either the first render
+        // or the size of the chart has changed
+        width = chartWidth;
+        height = chartHeight;
+        gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+        gradient.addColorStop(0.5, colora);
+        gradient.addColorStop(0.1, colorb);
+    }
+
+    return gradient;
+}
+
+
+
+
+
+
+
+var ctx = document.getElementById('line-chart');
+
+
+new Chart(document.getElementById("line-chart"), {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+            data: [85, 62, 54, 67, 95, 77, 79, 31, 88, 47, 7, 71],
+            label: "Summary",
+            borderColor: "#3e95cd",
+            // backgroundColor: function (context) {
+            //     const chart = context.chart;
+            //     const { ctx, chartArea } = chart;
+
+            //     if (!chartArea) {
+
+            //         return;
+            //     }
+            //     return getGradient(ctx, chartArea, "red", "black");
+            // },
+            // fill: true
+        },
+        {
+            data: [100, 62, 57, 75, 78, 71, 5, 14, 82, 37, 77, 58],
+            label: "Translations",
+            borderColor: "#8e5ea2",
+            // backgroundColor: function (context) {
+            //     const chart = context.chart;
+            //     const { ctx, chartArea } = chart;
+
+            //     if (!chartArea) {
+
+            //         return;
+            //     }
+            //     return getGradient(ctx, chartArea, "#AA18E7", "#2e123b");
+            // },
+            // fill: true
+        },
+        {
+            data: [41, 70, 31, 26, 66, 44, 75, 78, 21, 36, 51, 37],
+            label: "Advance Summary",
+            borderColor: "#3cba9f",
+
+            // backgroundColor: function (context) {
+            //     const chart = context.chart;
+            //     const { ctx, chartArea } = chart;
+
+            //     if (!chartArea) {
+
+            //         return;
+            //     }
+            //     return getGradient(ctx, chartArea, "white", "red");
+            // },
+            // fill: true
+        },
+        {
+            data: [62, 4, 14, 86, 8, 53, 29, 35, 84, 36, 96, 94],
+            label: "Content",
+            borderColor: "#e8c3b9",
+
+            // backgroundColor: function (context) {
+            //     const chart = context.chart;
+            //     const { ctx, chartArea } = chart;
+
+            //     if (!chartArea) {
+
+            //         return;
+            //     }
+            //     return getGradient(ctx, chartArea, "#AA18E7", "#2e123b");
+            // },
+            // fill: true,
+
+        }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            tooltip: {
+                mode: 'index',
+                intersect: false
+            },
+            title: {
+                display: false,
+                align: 'start',
+
+                text: 'Recent Activity',
+                padding: {
+                    top: 20,
+                    left: 20
+                    // bottom: 30
+                },
+                color: '#FFFFFF',
+                font: {
+                    family: "Poppins",
+                    weight: 500,
+                    size: 20,
+                }
+                // position: 'top',
+            }
+        },
+        hover: {
+            mode: 'index',
+            intersec: false
+        },
+
+
+
+
+
+        // LABel COLOR
+
+        scales: {
+            y: {  // not 'yAxes: [{' anymore (not an array anymore)
+                ticks: {
+                    color: "#444C73", // not 'fontColor:' anymore
+                    // fontSize: 18,
+                    font: {
+                        size: 18, // 'size' now within object 'font {}'
+                    },
+                    // stepSize: 1,
+                    beginAtZero: true
+                }
+            },
+            x: {  // not 'xAxes: [{' anymore (not an array anymore)
+                ticks: {
+                    color: "#444C73",  // not 'fontColor:' anymore
+                    //fontSize: 14,
+                    font: {
+                        size: 18 // 'size' now within object 'font {}'
+                    },
+                    // stepSize: 1,
+                    beginAtZero: true
+                }
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+});
+
+$(document).ready(function() {
+
+    $('#dataTable').removeClass('dataTable');
+    $('#dataTable').removeClass('no-footer');
+    $("#dataTable_wrapper > label").css('color','white');
+    
+      });
+
+</script>

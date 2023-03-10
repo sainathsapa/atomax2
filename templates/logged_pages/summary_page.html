@@ -1,0 +1,119 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+
+<div id="content">
+  <h1 class="welcome-user">Create your New Summary</h1>
+  <span class="nav-map">Login / Dashboard / New Summary</span>
+
+
+
+  <!-- SELECT BUTTONS -->
+  <div class="summary-grid no-left-margin">
+    <div class="summary-grid-layout summary-grid-active " id="filechoose">
+      <i class="grid-icon fa-solid fa-file-invoice" id="icon-file"></i>
+      <br>
+      <span class="summary-grid-text">Summarise<br> Files</span>
+    </div>
+
+    <div class="summary-grid-layout " id="linkchoose">
+      <i class="grid-icon fa-solid fa-newspaper" id="icon-news"></i> <br>
+      <span class="summary-grid-text">Summarise <br>NEWS</span>
+    </div>
+
+    <!-- <div class="summary-grid-layout ">
+      <i class="grid-icon fa-solid fa-microphone"></i>
+      <br>
+      <span class="summary-grid-text">Summarise Recording</span>
+  </div> -->
+
+
+  </div>
+
+  <!-- FILE CHOOSE MODEL -->
+  <div class="upload-file-section">
+    <div class="row-100">
+      <div class="col-50">
+        <input class="sum-id" type="text" name="" id="summary_id" value="{{summary_id}}" readonly />
+        <br />
+        <textarea class="summarysection">{{summary}}</textarea>
+      </div>
+      <div class="col-50">
+        <textarea rows="25" class="white-drop-section"></textarea>
+        <br />
+        {% if summary_approved == False %}
+        <a class="nostyle " href="/summary/sendApproval/summary/{{summary_id}}"> <button class="btn-approve"><i
+              class="fa fa-check-to-slot" style="margin-right: 5px !important;"></i>
+            send for
+            approval</button>
+        </a>
+        {%else%}
+TESTBTN
+        {% endif %}
+        <a class="nostyle" href="/summary/translatePage/summary/{{summary_id}}">
+          <button class="btn-trans"><i class="fa-sharp fa-solid fa-language" style="margin-right: 5px !important;"></i>
+            translate summary</button></a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</body>
+
+
+
+</html>
+
+<script>
+  // File Choosing trigger
+  $('#fileinputTrigger').click(function () {
+    $('#fileinput').trigger('click');
+
+  }
+
+
+  );
+
+
+  // Default Color values
+  $('#sublink').hide();
+  $('#icon-file').addClass('color-a');
+  $('#icon-news').addClass('color-b');
+
+
+  // Function to handle the clicked events
+  $('#linkchoose').click(function () {
+    $('#filechoose').removeClass('summary-grid-active');
+    $('#linkchoose').addClass('summary-grid-active');
+    $('#subfile').hide();
+
+    $('#sublink').show();
+    $('#icon-file').replaceClass('color-a', 'color-b');
+    $('#icon-news').replaceClass('color-b', 'color-a');
+
+  });
+
+  $('#filechoose').click(function () {
+    $('#filechoose').addClass('summary-grid-active');
+    $('#linkchoose').removeClass('summary-grid-active');
+    $('#subfile').show();
+
+    $('#sublink').hide();
+    $('#icon-file').replaceClass('color-b', 'color-a');
+    $('#icon-news').replaceClass('color-a', 'color-b');
+
+
+
+
+  });
+
+
+
+
+  // Function for Replacement of Class Definition
+  (function ($) {
+    $.fn.replaceClass = function (pFromClass, pToClass) {
+      return this.removeClass(pFromClass).addClass(pToClass);
+    };
+  }(jQuery));
+</script>

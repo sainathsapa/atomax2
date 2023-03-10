@@ -1,0 +1,77 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+<div id="content">
+    <h1 class="welcome-user">View Reports</h1>
+    <span class="nav-map">Login / Dashboard / Analisys History</span>
+
+
+
+    <div class="last-five">
+        <!-- <div class="last-title">
+            <span class="title">Last 5 Activities</span>
+            <span style="float: right;"><button class="btn-view">View More.!</button></span>
+        </div> -->
+        <table class="table-last" id="dataTable">
+
+            <thead>
+                <tr class="bg-th">
+                    <th>SI</th>
+                    <th>Hashtag</th>
+                    <th>Positive</th>
+                    <th>Negative</th>
+                    <th>Very Negative</th>
+                    <th>Neutral</th>
+                    <th>Timestamp</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for j in analysis_reports %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>#{{j.twitter_hashtag}}</td>
+                    <td>{{j.analysis_positive}}</td>
+                    <td>{{j.analysis_negative}}</td>
+                    <td>{{j.analysis_very_nagitive}}</td>
+                    <td>{{j.analysis_neutral}}</td>
+                    <td>{{j.analysis_Added_time}}
+                    </td>
+                    <td>
+
+                        <a href="/summary/analysis_report/{{j.analysis_id}}">
+                            <button class="btn-view-dash"><i class="fas fa-fw fa-eye"></i></button>
+                        </a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+            </tbody>
+
+        </table>
+    </div>
+    <br>
+</div>
+</body>
+
+{% include '../footer.html' %}
+
+
+</html>
+
+<script>
+
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+        $('#dataTable').removeClass('dataTable');
+        $('#dataTable').removeClass('no-footer');
+        $("#dataTable_wrapper > label").css('color', 'white');
+
+    });
+
+    $('#analysis-reports').addClass('nav-active');
+
+
+</script>

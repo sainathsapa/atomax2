@@ -1,0 +1,77 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+<div id="content">
+    <h1 class="welcome-user">Meeting History</h1>
+    <span class="nav-map">Login / Dashboard / View Meeting History</span>
+
+
+
+    <div class="last-five">
+        <!-- <div class="last-title">
+            <span class="title">Last 5 Activities</span>
+            <span style="float: right;"><button class="btn-view">View More.!</button></span>
+        </div> -->
+        <table class="table-last" id="dataTable">
+
+            <thead>
+                <tr class="bg-th">
+                    <th>SI</th>
+                    <th>Meeting file URL</th>
+                    <th>TimeStamp</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for j in getListMeeting %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="/{{j.meetingfileLocation}}">{{j.meetingfileLocation}}</a></td>
+                    <td>{{j.meeting_Added_time}}</td>
+                    <td>{% if j.meeting_ApprovalStatus == True %}
+                        Approved
+                        {% else %}
+                        Not Approved
+                        {% endif %}
+                    </td>
+
+                    <td>
+
+                        <a href="/summary/view_meeting_gen/{{j.meetingID}}">
+                            <button class="btn-view-dash"><i class="fas fa-fw fa-eye"></i> View
+                                Meeting</button>
+                        </a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+            </tbody>
+
+        </table>
+    </div>
+    <br>
+</div>
+</body>
+
+{% include '../footer.html' %}
+
+
+</html>
+
+<script>
+
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+        $('#dataTable').removeClass('dataTable');
+        $('#dataTable').removeClass('no-footer');
+        $("#dataTable_wrapper > label").css('color', 'white');
+
+    });
+
+    $('#view-meetingList').addClass('nav-active');
+
+
+</script>

@@ -1,0 +1,66 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+
+<div id="content">
+    <h1 class="welcome-user">View Summary</h1>
+    <span class="nav-map">Login / Dashboard / View Summary</span>
+
+
+
+
+    <!-- FILE CHOOSE MODEL -->
+    <div class="upload-file-section">
+        <div class="row-100">
+            <div class="col-50">
+                <input class="sum-id" type="text" name="" id="summary_id" value="{{summary_id}}" readonly />
+                <br />
+                <textarea rows="25" class="summarysection">{{summary}}</textarea>
+            </div>
+            <div class="col-50">
+                <textarea class="white-drop-section"></textarea>
+                <br />
+                {% if summary_approved == False %}
+                <a class="nostyle " href="/summary/sendApproval/summary/{{summary_id}}"> <button class="btn-approve"><i
+                            class="fa fa-check-to-slot" style="margin-right: 5px !important;"></i>
+                        send for
+                        approval</button>
+                </a>
+
+
+                {% endif %}
+                <a class="nostyle" href="/summary/translatePage/summary/{{summary_id}}">
+                    <button class="btn-trans"><i class="fa-sharp fa-solid fa-language"
+                            style="margin-right: 5px !important;"></i>
+                        translate summary</button></a>
+                {% if summary_approved == True %}
+                <div class="social-grid mt-10">
+                    <label class="meeting-label">Share post as :</label>
+                    <a class="nostyle social-icon" href="/summary/post_insta?summary_text={{summary}}">
+                        <i class="fa-brands fa-square-facebook fa-2x icon-grid"></i>
+                        <label class="social-site-name">Facebook</label>
+                    </a>
+                    <a class="nostyle social-icon" href="/summary/post_twitter?summary_text={{summary}}">
+                        <i class="fa-brands fa-square-twitter fa-2x icon-grid"></i>
+                        <label class="social-site-name">Twitter</label>
+
+                    </a>
+                    <a class="nostyle social-icon" href="/summary/post_linkedin?summary_text={{summary}}">
+                        <i class="fa-brands fa-linkedin fa-2x icon-grid"></i>
+                        <label class="social-site-name">LinkedIn</label>
+
+                    </a>
+                </div>
+                {%endif%}
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+
+</html>

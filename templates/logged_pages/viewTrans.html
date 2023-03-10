@@ -1,0 +1,94 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+
+
+
+<div id="content">
+    <h1 class="welcome-user">Translate</h1>
+    <span class="nav-map">Login / Dashboard / View Summary / Translate</span>
+
+
+
+    <div class="upload-file-section">
+        <!-- <form class="form-horizontal" role="form" action="/summary/translate" method="post"> -->
+        {%csrf_token%}
+        <div class="row-100 ">
+            <div class="col-50">
+                <!-- <label for="summary_id" class="text-dark">Summerized ID : </label> -->
+                <input type="text" class="mr-auto sum-id" id="summary_id" value="Trans-{{trans.transID}}" readonly />
+
+                <!-- <label for="summary_text" class="text-dark">Summerized Text : </label> -->
+
+            </div>
+            <div class="col-50">
+                <!-- <label for="convert" class="text-dark">Convert To : </label> -->
+                <select class="mr-auto sum-id" id="convert" name="convert">
+                    <option value="te">Telugu - తెలుగు</option>
+                    <option value="hi">Hindi - हिन्दी </option>
+                    <option value="ur">Urdu - اردو </option>
+                    <option value="ta">Tamil - தமிழ் </option>
+                    <option value="kn">Kannada - ಕನ್ನಡ </option>
+                    <option value="mr">Marthi - मराठी </option>
+                    <option value="pa">Punjabi - ਪੰਜਾਬੀ </option>
+                    <option value="gu">Gujrathi - ગુજરાતી </option>
+                </select>
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="row-100">
+            <textarea rows="20" class="trans-summary" id="summary_text" name="summary_text" placeholder=""
+                readonly>{{trans.transText}}</textarea>
+        </div>
+        <br>
+        <div class="row-100">
+            <div class="col-50 py-20">
+                <button class="btn-trans" type="submit" value="submit" class="btn btn-primary">
+
+
+
+                    <i class="fa-solid fa-download"></i> Download</button>
+
+            </div>
+            <div class="col-50 py-20">
+
+                {% if approval_status == False %}
+                <a class="nostyle" href="/summary/sendApproval/trans/{{trans.transID}}"><button class="btn-approve"
+                        type="button"><i class="fa fa-thumbs-up"></i>
+                        Send for Approval
+                    </button></a>
+
+                {% endif %}
+            </div>
+        </div>
+
+
+        <!-- </form> -->
+
+    </div>
+</div>
+
+</div>
+<!-- /.container-fluid -->
+{% include '../footer.html' %}
+</div>
+<!-- End of Main Content -->
+
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>

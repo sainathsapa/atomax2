@@ -1,0 +1,46 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+
+<div id="content">
+    <h1 class="welcome-user">Generate Your Report</h1>
+    <span class="nav-map">Login / Dashboard / Twitter Analysis</span>
+
+
+
+    <!-- FILE CHOOSE MODEL -->
+
+
+
+
+
+    <div class="upload-file-section" id="sublink">
+        <form class="form-horizontal" role="form" action="" method="post">
+            {%csrf_token%}
+
+            <input class="FormInputNEWS" type="text" name="hashtag" id="hashatag"
+                placeholder="Provide any #Hashtag to generate report" />
+
+            <button type="submit" class="btn-upload">Generate Report </button>
+        </form>
+    </div>
+
+</div>
+</body>
+
+
+
+</html>
+
+{% include '../footer.html' %}
+
+
+<script>
+    // File Choosing trigger
+
+    $('#sublink').show();
+    // Adding Aactive for Sidebar
+
+    $('#twitter-analysis').addClass('nav-active');
+
+
+</script>

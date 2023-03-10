@@ -1,0 +1,89 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+<div id="content">
+    <h1 class="welcome-user">Summaries History</h1>
+    <span class="nav-map">Login / Dashboard / View Summary History</span>
+
+
+
+    <div class="last-five">
+        <!-- <div class="last-title">
+            <span class="title">Last 5 Activities</span>
+            <span style="float: right;"><button class="btn-view">View More.!</button></span>
+        </div> -->
+        <table class="table-last" id="dataTable">
+
+            <thead>
+                <tr class="bg-th">
+                    <th>SI</th>
+                    <th>File Or URL</th>
+                    <th>TimeStamp</th>
+                    <th>Status</th>
+                    <th>Twitter</th>
+                    <th>Instagram</th>
+                    <th>Summary</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for j in summaryList %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="/{{j.summary_org_file}}">{{j.summary_org_file}}</a></td>
+                    <td>{{j.summary_timestamp}}</td>
+                    <td>{% if j.summary_approval_status == True %}
+                        Approved
+                        {% else %}
+                        Not Approved
+                        {% endif %}
+                    </td>
+                    <td>{% if j.summary_added_to_twitter == False %}
+                        Not Posted
+                        {% else %}
+                        Posted LINK
+                        {% endif %}
+                    </td>
+                    <td>{% if j.summary_added_to_instagram == False %}
+                        Not Posted
+                        {% else %}
+                        Posted LINK
+                        {% endif %}</td>
+                    <td>
+
+                        <a href="/summary/viewSummary/{{j.summary_id}}">
+                            <button class="btn-view-dash"><i class="fas fa-fw fa-eye"></i> View
+                                Summary</button>
+                        </a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+            </tbody>
+
+        </table>
+    </div>
+    <br>
+</div>
+</body>
+
+{% include '../footer.html' %}
+
+
+</html>
+
+<script>
+
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+        $('#dataTable').removeClass('dataTable');
+        $('#dataTable').removeClass('no-footer');
+        $("#dataTable_wrapper > label").css('color', 'white');
+
+    });
+
+    $('#view-summaries').addClass('nav-active');
+
+
+</script>

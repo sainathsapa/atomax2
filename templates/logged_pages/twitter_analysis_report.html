@@ -1,0 +1,240 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+
+<div id="content">
+    <h1 class="welcome-user">View Report</h1>
+    <span class="nav-map">Login / Dashboard / View Reports / View Report</span>
+
+
+
+
+    <!-- FILE CHOOSE MODEL -->
+    <div class="upload-file-section" id="subfile">
+
+        <div class="row-100">
+            <div class="col-50">
+                <input type="text" class="sum-id mr-auto" value="#{{analalysisReport.twitter_hashtag}}" />
+            </div>
+            <div class="col-50">
+                <!-- <label for="convert" class="text-dark">Convert To : </label> -->
+                <select class="mr-auto sum-id" id="lcoation" name="location"
+                    onchange="alert('location not enabaled, contact admin for more details');">
+                    <option value="None">Select Location</option>
+                    <option value="hyd">Hyderabad</option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="row-100">
+            <div class="col-30">
+                <ul>
+                    <!-- POSTIVE -->
+                    <li>
+
+                        <div class="card-report">
+                            <div class="row-100">
+                                <div class="col-30 text-green pl-20 pt-10">
+                                    <span class="card-title">Positive</span>
+                                    <i class="fa fa-face-smile-beam  card-icon p-5 circle-border border-green"></i>
+                                </div>
+                                <div class="pt-10 col-70 mr-auto mt-50">
+                                    <span class="card-percentage">{{analysis_positive}}%</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <!-- NEUTRAL -->
+                    <li>
+
+                        <div class="card-report">
+                            <div class="row-100">
+                                <div class="col-30 text-blue pl-20 pt-10">
+                                    <span class="card-title">Neutral</span>
+                                    <i class="fa fa-face-meh  card-icon p-5 circle-border border-blue"></i>
+                                </div>
+                                <div class="pt-10 col-70 mr-auto mt-50">
+                                    <span class="card-percentage">{{analysis_neutral}}%</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </li>
+                    <!-- NEGATIVE -->
+                    <li>
+
+                        <div class="card-report">
+                            <div class="row-100">
+                                <div class="col-30 text-yellow pl-20 pt-10">
+                                    <span class="card-title">Negative</span>
+                                    <i class="fa fa-face-frown-open  card-icon p-5 circle-border border-yellow"></i>
+                                </div>
+                                <div class="pt-10 col-70 mr-auto mt-50">
+                                    <span class="card-percentage">{{analysis_negative}}%</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </li>
+
+                    <!-- VERY NEGATIVE -->
+                    <li>
+
+                        <div class="card-report">
+                            <div class="row-100">
+                                <div class="col-30 text-red pl-20 pt-10">
+                                    <span class="card-title" style="font-size: 11px;">Very Nagative</span>
+                                    <i class="fa-solid fa-face-angry  card-icon p-5 circle-border border-red"></i>
+                                </div>
+                                <div class="pt-10 col-70 mr-auto mt-50">
+                                    <span class="card-percentage">{{analysis_very_nagitive}}%</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-70 mt-10">
+                <canvas class="radar" id="radar-chart"></canvas>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+</body>
+
+
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+
+
+{% include '../footer.html' %}
+
+
+<script>
+
+
+    // Adding Aactive for Sidebar
+
+    $('#analysis-reports').addClass('nav-active');
+
+
+
+
+
+
+    // CHARTS
+
+
+
+
+
+    new Chart(document.getElementById("radar-chart"), {
+        type: 'radar',
+        data: {
+            labels: ["Positive", "Neutral", "Negative", "Very Negative"],
+            datasets: [{
+                data: ['{{analysis_positive}}', '{{analysis_neutral}}', '{{analysis_negative}}', '{{analysis_very_nagitive}}'],
+                labels: "Report",
+                fill: true,
+                backgroundColor: 'rgba(253, 156, 255, 0.6))',
+                borderColor: '#FD9CFF80',
+                pointBackgroundColor: 'rgba(253, 156, 255, 0.6)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#FD9CFF80',
+                pointHoverBorderColor: '#FD9CFF80'
+            },
+
+            ]
+        },
+        options: {
+
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                },
+                legend: {
+                    display: false
+                }
+
+            },
+            hover: {
+                mode: 'index',
+                intersec: false
+            },
+            elements: {
+                line: {
+                    borderWidth: 2
+                }
+            },
+
+
+
+
+
+            // LABel COLOR
+
+            scales: {
+                // color:
+                // {
+                //     type: 'color',
+                // },
+                // gridLines: {
+                //     type: 'logarithmic',
+                //     position: 'right',
+                //     display: true,
+                //     color: 'white',
+                //     max: 100,
+                //     beginwithZero: true,
+                // }
+                r: {
+                    max: 55,
+                    min: 0,
+                    beginAtZero: true,
+                    angleLines: {
+                        color: '#B0B0B0',
+
+                    },
+                    grid: {
+                        color: '#B0B0B0',
+                    }
+                },
+            }
+        }
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+</script>

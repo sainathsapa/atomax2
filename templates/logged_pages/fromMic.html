@@ -1,0 +1,81 @@
+{% include '../head.html' %}
+
+<body id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    {% include './sidebar.html' %}
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <!-- Main Content -->
+      <div id="content">
+        {% include './topbar.html' %}
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray">Text from Microphone</h1>
+          {% comment %} <p class="mb-4">Summarize text from an NEWS article</p> {% endcomment %}
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <!-- <h6 class="m-0 font-weight-bold text-dark">DataTables Example</h6> -->
+            </div>
+            <div class="card-body">
+              <form class="form-horizontal" role="form" action="/summary/nw_mic" method="post" id='fileUpload' enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-md-6">
+                  <marquee scrollamount="11" class="bg-warning">
+                    <h5 class="text-danger">Use stop words as BREAK or STOP words to stop recording</h5>
+                  </marquee>
+                  <label for="language">Select Language :</label>
+                  <select type="text" class="form-control" name="language" id="lang">
+                    <option value="te-In">Telugu - తెలుగు</option>
+                    <option value="hi-In">Hindi - हिन्दी</option>
+                    <option value="ur-IN">Urdu - اردو</option>
+                    <option value="ta-In">Tamil - தமிழ்</option>
+                    <option value="kn-In">Kannada - ಕನ್ನಡ</option>
+                    <option value="mr-IN">Marthi - मराठी</option>
+                    <option value="pa-Guru-In">Punjabi - ਪੰਜਾਬੀ</option>
+                    <option value="gu-In">Gujrathi - ગુજરાતી</option>
+                  </select>
+                  <br />
+                  <!-- <input type="file" accept="audio/*" capture /> -->
+                </div>
+                <button type="button" class="btn btn-success" id="recordButton">Start Recording</button>
+                <button type="button" class="btn btn-danger" id="stopButton" class="inactive">Stop</button>
+                <div class="playback">
+                  <audio src="" controls id="audio-playback" class="hidden"></audio>
+                </div>
+
+                <div class="download">
+                  <button class="hidden" id="downloadContainer"><a href="" download="" id="downloadButton">Download Audio</a></button>
+                </div>
+                <input class="" type="file" id="inputAudioFile" name="uploadedFile" value="" style="display: none;" />
+                
+                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+  </div>
+
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button -->
+  <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</body>
+{% include '../footer.html' %}
+
+
+
+

@@ -1,0 +1,75 @@
+{% include '../head.html' %}
+{% include './sidebar.html' %}
+<div id="content">
+    <h1 class="welcome-user">Content History</h1>
+    <span class="nav-map">Login / Dashboard / Content History</span>
+
+
+
+    <div class="last-five">
+        <!-- <div class="last-title">
+            <span class="title">Last 5 Activities</span>
+        </div> -->
+        <table class="table-last" id="dataTable">
+
+            <thead>
+                <tr class="bg-th">
+                    <th>SI</th>
+                    <th>Question</th>
+                    <th>Content Type</th>
+                    <th>Status</th>
+                    <th>Time</th>
+
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for j in contentHistory %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{j.contentQN}}</td>
+                    <td>{{j.contentType}}</td>
+                    <td>{{j.contentApprovalStatus}}
+                    </td>
+                    <td>{{j.contentAdded_time}}
+                    </td>
+                    <td>
+
+                        <a href="/summary/generated_content/{{j.contentID}}">
+                            <button class="btn-view-dash"><i class="fas fa-fw fa-eye"></i> View
+                                Summary</button>
+                        </a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+            </tbody>
+
+        </table>
+    </div>
+    <br>
+</div>
+</body>
+
+{% include '../footer.html' %}
+
+
+</html>
+
+<script>
+
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+        $('#dataTable').removeClass('dataTable');
+        $('#dataTable').removeClass('no-footer');
+        $("#dataTable_wrapper > label").css('color', 'white');
+
+    });
+
+    $('#content-history').addClass('nav-active');
+
+
+</script>

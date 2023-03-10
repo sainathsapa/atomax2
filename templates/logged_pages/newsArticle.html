@@ -1,0 +1,136 @@
+{% include '../head.html' %}
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        {% include './sidebar.html' %}
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                {%include './topbar.html'%}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray">NEWS Article</h1>
+                    <p class="mb-4">Summarize text from an NEWS article</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <!-- <h6 class="m-0 font-weight-bold text-dark">DataTables Example</h6> -->
+                        </div>
+                        <div class="card-body">
+                            <form class="form-horizontal" role="form" action="#" method="post">
+                                {%csrf_token%}
+                                <table class="container-fluid">
+                                    <thead>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </thead>
+                                    <label for="news_url" class="text-dark">URL('s') : </label>
+                                    <tbody id="article_row">
+
+                                        <tr id="row">
+                                            <td>
+                                                <textarea class="form-control" id="news_url[]" name="news_url[]"
+                                                    placeholder="Add your NEWS article urls here to fetch the summary.. in http:// or https:// format"></textarea>
+                                            <td>
+                                            <td>
+                                                <i class="fa fa-plus-circle p-1 text-success" id="add_btn"
+                                                    onclick="Add_ROW()"></i>
+                                            </td>
+
+                                        <tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+                {% include '../footer.html' %}
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <script>
+        var arr = ["add_btn", "add_btn_1", "add_btn_2", "add_btn_3", "add_btn_4", "add_btn_5", "add_btn_6"];
+        var arrRow = ["row", "row_1", "row_2", "row_3", "row_4", "row_5", "row_6"];
+
+
+        var i = 1;
+
+        function Add_ROW() {
+            var img_icon = document.getElementById(arr[i - 1]);
+            console.log(img_icon);
+
+            if (i == 0) {
+                img_icon.style.visibility = 'visible';
+
+            }
+            if (i < 1) {
+                img_icon.style.visibility = 'hidden';
+            }
+            if (i == 6) {
+                var img_icon = document.getElementById(arr[i - 1]);
+                img_icon.style.visibility = 'hidden';
+                return;
+
+            }
+
+            var img_icon = document.getElementById(arr[i - 1]);
+            img_icon.style.visibility = 'hidden';
+
+
+            var Add = document.createElement("tr");
+            Add.id = arrRow[i];
+            console.log(arrRow[i]);
+            Add.innerHTML = '<tr><td><textarea class="form-control" id="news_url[]" name="news_url[]" placeholder="Add your NEWS article urls here to fetch the summary.. in http:// or https:// format"></textarea> <td><td><i class="fa fa-plus-circle p-1 text-success" id="' + arr[i] + '" onclick="Add_ROW()"></i><i class="fa fa-trash p-1 text-danger" id="del_btn" onclick="deleteID(this.id)"></i></td><tr>';
+            document.getElementById("article_row").appendChild(Add);
+            i++;
+
+
+
+        }
+        function deleteRow(rowid) {
+            var row = document.getElementById(rowid);
+            row.parentNode.removeChild(row);
+            
+        }
+        function deleteID(child) {
+            var childID = "#" + child;
+            deleteRow($(childID).parent().parent().attr('id'));
+            i--;
+            if (i < 1 || i == 0) {
+                var img_icon = document.getElementById(arr[i]);
+                console.log(i);
+                img_icon.style.visibility = 'visible';
+
+            }
+        }
+    </script>
